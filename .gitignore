@@ -49,3 +49,5 @@ sess_*
 # Archivos de configuración personal
 config.local.php
 database.local.php
+
+.gitignore
