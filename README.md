@@ -16,7 +16,6 @@ Sistema completo de gestión de notas académicas desarrollado en PHP puro con a
 - [Tecnologías](#-tecnologías)
 - [Seguridad](#-seguridad)
 - [Uso](#-uso)
-- [Contribuciones](#-contribuciones)
 - [Licencia](#-licencia)
 
 ## ✨ Características
@@ -45,9 +44,9 @@ Sistema completo de gestión de notas académicas desarrollado en PHP puro con a
 ## 🔧 Requisitos
 
 - **PHP**: 7.4 o superior
-- **MySQL**: 5.7 o superior (o MariaDB 10.2+)
+- **MySQL**: 5.7 o superior
 - **Servidor Web**: Apache con mod_rewrite habilitado
-- **Navegador**: Navegador web moderno (Chrome, Firefox, Edge, Safari)
+- **Navegador**: Navegador web moderno
 
 ## 📦 Instalación
 
@@ -64,7 +63,7 @@ Configura tu servidor web para apuntar al directorio del proyecto. Si usas XAMPP
 
 ### 3. Crear la base de datos
 
-Ejecuta el script SQL proporcionado (ubicado en `database/sisgenot.sql` o similar) para crear la base de datos y las tablas necesarias.
+Ejecuta el script SQL proporcionado (ubicado en `sisgenot.md`) para crear la base de datos y las tablas necesarias.
 
 ```sql
 CREATE DATABASE sisgenot CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
@@ -83,15 +82,7 @@ define('DB_USER', 'tu_usuario');
 define('DB_PASS', 'tu_contraseña');
 ```
 
-> ⚠️ **Importante**: No subas el archivo `config/database.php` con credenciales reales al repositorio. Usa variables de entorno o un archivo de configuración local.
-
-### 5. Verificar permisos
-
-Asegúrate de que las carpetas que requieren escritura tengan los permisos adecuados:
-- Carpeta de logs (si existe)
-- Carpeta de uploads (si existe)
-
-### 6. Acceder al sistema
+### 5. Acceder al sistema
 
 Accede al sistema desde tu navegador:
 
@@ -103,7 +94,7 @@ http://localhost/sisgenot/
 
 ### Variables de Entorno
 
-Para mayor seguridad, considera usar variables de entorno o un archivo de configuración local que no se suba al repositorio. Puedes crear un archivo `config/database.local.php` basado en `config/database.example.php`.
+Rmplaza los datos de database.php.example y borra .example
 
 ### Usuarios de Prueba
 
@@ -115,7 +106,7 @@ Después de la instalación, puedes crear usuarios de prueba a través del panel
 sisgenot/
 ├── config/               # Configuraciones del sistema
 │   ├── config.php       # Constantes globales
-│   └── database.php     # Conexión PDO a MySQL
+│   └── database.php.example     # Conexión PDO a MySQL
 ├── controllers/         # Controladores MVC
 │   ├── AuthController.php
 │   ├── AdminController.php
@@ -140,7 +131,9 @@ sisgenot/
 │   └── functions.php   # Funciones auxiliares
 ├── public/              # Recursos públicos
 │   ├── css/            # Estilos personalizados
-│   └── js/             # JavaScript
+│   ├── js/             # JavaScript
+│   └── img/            # Imágenes y medios públicos
+├── .htaccess            # Configuración de Apache y reglas de acceso
 └── index.php            # Punto de entrada
 ```
 
@@ -183,30 +176,6 @@ El sistema implementa múltiples capas de seguridad:
 1. Inicia sesión con tus credenciales
 2. Navega por el menú según tu rol (Administrador, Docente o Estudiante)
 3. Utiliza las funcionalidades disponibles según tus permisos
-
-Para más detalles sobre el uso específico de cada módulo, consulta la documentación interna del sistema.
-
-## 🤝 Contribuciones
-
-Las contribuciones son bienvenidas. Para contribuir:
-
-1. Fork el proyecto
-2. Crea una rama para tu feature (`git checkout -b feature/AmazingFeature`)
-3. Commit tus cambios (`git commit -m 'Add some AmazingFeature'`)
-4. Push a la rama (`git push origin feature/AmazingFeature`)
-5. Abre un Pull Request
-
-Por favor, asegúrate de:
-- Seguir los estándares de código existentes
-- Incluir comentarios cuando sea necesario
-- Probar tus cambios antes de hacer commit
-
-## 📝 Notas Adicionales
-
-- Este sistema fue desarrollado para fines académicos
-- Asegúrate de cambiar todas las credenciales por defecto en producción
-- Realiza backups regulares de la base de datos
-- Mantén el sistema actualizado con las últimas versiones de PHP y MySQL
 
 ## 📄 Licencia
 
