@@ -1,0 +1,52 @@
+# Archivos de configuración sensibles
+config/database.php
+
+# Archivos de log
+*.log
+logs/
+*.log.*
+error_log
+
+# Archivos temporales y cache
+*.tmp
+*.cache
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# Archivos de entorno
+.env
+.env.local
+.env.*.local
+sisgenot.md
+instrucciones.md
+
+# Archivos de IDE
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Archivos de sistema operativo
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Desktop.ini
+
+# Archivos de backup
+*.bak
+*.backup
+*.sql.backup
+backup_*.sql
+
+# Archivos de sesión PHP
+sess_*
+
+# Archivos de configuración personal
+config.local.php
+database.local.php
