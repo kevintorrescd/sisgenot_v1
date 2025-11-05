@@ -5,12 +5,26 @@ define('APP_VERSION', '1.0.0');
 
 // Detectar automáticamente la URL base de la aplicación
 function detectar_url_base() {
-    // Detectar si es HTTPS o HTTP
-    $protocolo = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') || 
-                 (!empty($_SERVER['SERVER_PORT']) && $_SERVER['SERVER_PORT'] == 443) ? 'https://' : 'http://';
+    // Detectar protocolo (HTTP o HTTPS)
+    // Prioridad: X-Forwarded-Proto > HTTPS header > puerto 443
+    if (!empty($_SERVER['HTTP_X_FORWARDED_PROTO'])) {
+        $protocolo = $_SERVER['HTTP_X_FORWARDED_PROTO'] . '://';
+    } elseif ((!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') || 
+              (!empty($_SERVER['SERVER_PORT']) && $_SERVER['SERVER_PORT'] == 443)) {
+        $protocolo = 'https://';
+    } else {
+        $protocolo = 'http://';
+    }
     
-    // Obtener el host (localhost, IP, dominio)
-    $host = $_SERVER['HTTP_HOST'];
+    // Detectar host
+    // Prioridad: X-Forwarded-Host > HTTP_HOST
+    if (!empty($_SERVER['HTTP_X_FORWARDED_HOST'])) {
+        $host = $_SERVER['HTTP_X_FORWARDED_HOST'];
+    } elseif (!empty($_SERVER['HTTP_HOST'])) {
+        $host = $_SERVER['HTTP_HOST'];
+    } else {
+        $host = $_SERVER['SERVER_NAME'];
+    }
     
     // Obtener la ruta del directorio (por ejemplo: /sisgenot)
     $script_name = $_SERVER['SCRIPT_NAME'];
@@ -50,7 +64,14 @@ date_default_timezone_set('America/Bogota');
 // Configuración de errores (solo para desarrollo)
 // Detectar si es entorno local (localhost, 127.0.0.1, o IP local 192.168.x.x, 10.x.x.x)
 function es_entorno_local() {
-    $host = $_SERVER['HTTP_HOST'];
+    // Usar el host real (prioridad a X-Forwarded-Host si existe)
+    if (!empty($_SERVER['HTTP_X_FORWARDED_HOST'])) {
+        $host = $_SERVER['HTTP_X_FORWARDED_HOST'];
+    } elseif (!empty($_SERVER['HTTP_HOST'])) {
+        $host = $_SERVER['HTTP_HOST'];
+    } else {
+        $host = $_SERVER['SERVER_NAME'];
+    }
     
     // Quitar el puerto si existe (ej: 192.168.1.100:8080 -> 192.168.1.100)
     $host = explode(':', $host)[0];

@@ -13,6 +13,20 @@ class SessionManager {
      */
     public static function iniciar_sesion() {
         if (session_status() === PHP_SESSION_NONE) {
+            // Configurar parámetros de sesión para que funcionen con cualquier dominio
+            $secure = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') || 
+                      (!empty($_SERVER['SERVER_PORT']) && $_SERVER['SERVER_PORT'] == 443) ||
+                      (!empty($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] === 'https');
+            
+            session_set_cookie_params([
+                'lifetime' => SESSION_LIFETIME,
+                'path' => '/',
+                'domain' => '', // Dominio vacío para que funcione con cualquier host
+                'secure' => $secure,
+                'httponly' => true,
+                'samesite' => 'Lax'
+            ]);
+            
             session_name(SESSION_NAME);
             session_start();
             
